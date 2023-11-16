@@ -1,0 +1,110 @@
+h1 {
+    color:whitesmoke;
+    text-align: center;
+    font-family: "Amazon Ember",sans-serif;
+    
+}
+.questions {
+    color: whitesmoke;
+    font-family: "Amazon Ember",sans-serif;
+    text-align: center;
+    font-size: xx-large; 
+    margin: 10px;
+}
+
+/*#nextQuestion{
+    -webkit-mask-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
+}*/
+
+.answers{
+    color: whitesmoke;
+    font-family: "Amazon Ember",sans-serif;
+    text-align: center;
+    margin: 10px;
+}
+
+
+.streak{
+    color: whitesmoke;
+    font-family: "Amazon Ember",sans-serif;
+    text-align: center;
+    font-size: x-large;
+    margin: 10px;
+
+}
+
+input{
+    border-top: 2px whitesmoke;
+    border-left: 2px whitesmoke;
+    border-right: 2px whitesmoke;
+    background: transparent;
+    padding: 12px 20px;
+    margin: 8px 0;
+    color: whitesmoke;
+    font-family: "Amazon Ember",sans-serif;
+    font-size: xx-large;
+}textarea:focus, input:focus{
+    outline: none;
+}
+
+button{
+  background-color: #fff;
+  border: 1px solid #d5d9d9;
+  border-radius: 8px;
+  box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
+  box-sizing: border-box;
+  color: #0f1111;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Amazon Ember",sans-serif;
+  font-size: 20px;
+  line-height: 29px;
+  padding: 0 10px 0 11px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  width: 100px;
+}button:hover {
+  background-color: rgba(9,35,121,1);
+  color: whitesmoke;
+}button:focus {
+  border-color: #008296;
+  box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
+  outline: 0;
+}
+
+body{
+    background: rgb(88,0,0);
+    background: linear-gradient(90deg, rgba(88,0,0,1) 0%, rgba(9,35,121,1) 44%, rgba(133,0,255,1) 100%); 
+}
+
+
+.currentQuestion-animate{
+    position:relative;
+    animation:animatetop 0.3s}
+
+@keyframes animatetop{
+    from{
+        top:0px;opacity:1
+        } 
+    to{
+        top:-30px;opacity:0
+    }
+}
+
+.nextQuestion-animate{
+    position:relative;
+    animation:animatebottom 0.3s}
+
+@keyframes animatebottom{
+    from{
+        top:0px;opacity:0
+        } 
+    to{
+        top:-45px;opacity:1
+    }
+}

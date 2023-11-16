@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+
+
+<body>
+    <main>
+        <h1 >Times Tables</h1>
+        <!-- css class for the questions -->
+    <div id="currentQuestion" class="questions"></div>
+    <div id="nextQuestion" class="questions"></div>
+
+        <!-- css class for answers-->
+        <div class ="answers">
+            <form autocomplete="off">
+                <div>
+                    <input id="userAnswer" type="text">
+                    <!-- click to submit answer-->
+                    <button id="myBtn">Submit</button>
+                </div>
+
+            </form>
+        </div>
+        <div id="streak" class="streak"></div>
+        <script src="index.js"></script>
+    </main>
+</body>
+</html>
