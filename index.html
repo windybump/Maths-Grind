@@ -5,11 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 
 <body>
+    <!-- navbar to toggle difficulty and custom timetable generations-->
+    <nav>
+        <div class="nav-center">
+            <div class="nav-header">
+                <button class="nav-toggle" onclick="openNav()">
+                    <i class="fa fa-bars"></i>
+                </button>
+            </div>
+            <div id="myNav" class="overlay">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <div class="overlay-content">
+                  <a href="#" onclick="difficulty('easy')">Easy</a>
+                  <a href="#" onclick="difficulty('medium')">Medium</a>
+                  <a href="#" onclick="difficulty('hard')">Hard</a>
+                  <a href="#">Custom</a>
+                </div>
+              </div>
+        </div>
+        <script src="nav.js"></script>
+    </nav>
+
+
+    <!-- main part which generates the time table questions and inputs etc-->
     <main>
         <h1 >Times Tables</h1>
         <!-- css class for the questions -->
@@ -28,6 +51,7 @@
             </form>
         </div>
         <div id="streak" class="streak"></div>
+        <div id="highScore" class="highScore"></div>
         <script src="index.js"></script>
     </main>
 </body>

@@ -1,24 +1,21 @@
 h1 {
     color:whitesmoke;
     text-align: center;
-    font-family: "Amazon Ember",sans-serif;
-    
 }
 .questions {
     color: whitesmoke;
-    font-family: "Amazon Ember",sans-serif;
     text-align: center;
     font-size: xx-large; 
     margin: 10px;
 }
 
-/*#nextQuestion{
-    -webkit-mask-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
-}*/
+#nextQuestion{
+   /*-webkit-mask-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));*/
+   opacity: 0.3;
+}
 
 .answers{
     color: whitesmoke;
-    font-family: "Amazon Ember",sans-serif;
     text-align: center;
     margin: 10px;
 }
@@ -26,7 +23,13 @@ h1 {
 
 .streak{
     color: whitesmoke;
-    font-family: "Amazon Ember",sans-serif;
+    text-align: center;
+    font-size: x-large;
+    margin: 10px;
+
+}
+.highScore{
+    color: whitesmoke;
     text-align: center;
     font-size: x-large;
     margin: 10px;
@@ -80,9 +83,15 @@ button{
 body{
     background: rgb(88,0,0);
     background: linear-gradient(90deg, rgba(88,0,0,1) 0%, rgba(9,35,121,1) 44%, rgba(133,0,255,1) 100%); 
+    font-family: "Amazon Ember",sans-serif;
+    font-family: "Comic Sans";
+}
+main{
+    
 }
 
 
+/* CSS FOR ANIMATIONS OF QUESTIONS */
 .currentQuestion-animate{
     position:relative;
     animation:animatetop 0.3s}
@@ -102,9 +111,61 @@ body{
 
 @keyframes animatebottom{
     from{
-        top:0px;opacity:0
+        top:0px;opacity:0.3
         } 
     to{
-        top:-45px;opacity:1
+        top:-55px;opacity:1
     }
 }
+
+
+/* CSS FOR NAVBAR */
+.overlay {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0, 0.9);
+    overflow-x: hidden;
+    transition: 0.5s;
+  }
+  
+  .overlay-content {
+    position: relative;
+    top: 25%;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+  }
+  
+  .overlay a {
+    padding: 8px;
+    text-decoration: none;
+    font-size: 36px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+  }
+  
+  .overlay a:hover, .overlay a:focus {
+    color: #f1f1f1;
+  }
+  
+  .overlay .closebtn {
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 60px;
+  }
+  
+  @media screen and (max-height: 450px) {
+    .overlay a {font-size: 20px}
+    .overlay .closebtn {
+    font-size: 40px;
+    top: 15px;
+    right: 35px;
+    }
+  }
