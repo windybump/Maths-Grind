@@ -31,7 +31,7 @@ function submitNumbers(){
 function addNumber(){
   let inputInclude = document.getElementById('inputInclude');
   checkInt = Number(inputInclude.value)
-  if (!isNaN(checkInt) && (checkInt|0) === checkInt && checkInt > 0 && customNumberArray.includes(checkInt) == false){
+  if (!isNaN(checkInt) && (checkInt|0) === checkInt && checkInt > 0 && customNumberArray.includes(checkInt) == false && checkInt < 50){
     clearCustom();
     for (i = 1; i <= checkInt; i++){ 
       customNumberArray.push(i)
