@@ -1,10 +1,15 @@
 let input = document.getElementById('userAnswer');
 input.focus();
-input.select();
-let exclude = [1,5,10]
-let include = [1,2,3,4,5,6,7,8,9,11,12]
-let [a,b] = [generateRandom(1, 12, exclude),generateRandom(1, 12, exclude)];
-let [nexta,nextb] = [generateRandom(1, 12, exclude),generateRandom(1, 12, exclude)];
+// input.select();
+let exclude = []
+let include = [1,2]
+let timesTables = generateSet(include)
+console.log(timesTables)
+// let [a,b] = [generateRandom(1, 12, exclude),generateRandom(1, 12, exclude)];
+// let [nexta,nextb] = [generateRandom(1, 12, exclude),generateRandom(1, 12, exclude)];
+let count = 0;
+let [a,b] = [0,0];
+let [nexta,nextb] = [timesTables[0].including,timesTables[0].j];
 
 let streak = 0;
 let highScore = 0;
@@ -22,52 +27,60 @@ function generateRandom(min, max, excludes) {
 
 function difficulty(level){
     if (level == 'easy'){
-        exclude = []
+        include = [1,2,3,4,5,10,11]
     }else if(level == 'medium'){
-        exclude = [1,10]
+        include = [1,2,3,4,5,6,9,10,11]
     }else if(level == 'hard'){
-        exclude = [1,2,5,10]
+        include = [2,3,4,5,6,7,8,9,11,12]
+    }else if(level == 'custom'){
+        console.log("include numbers:");
+        console.log(customNumberArray);
+        include = customNumberArray;
     }
     closeNav();
     streak = 0;
     document.getElementById("streak").innerText = "Streak: " + String(streak);
-    generateQuestion();
+    timesTables = generateSet(include);
+    console.log(timesTables)
+    count = 0;
+    [a,b] = [0,0]; //resets the questions after adjusting the difficulty
+    [nexta,nextb] = [timesTables[0].including,timesTables[0].j]; //otherwise the next question from the previous difficulty will show as the current question
+    generateQuestion();    
 }
-
 function generateQuestion(){
-    while(a==nexta && b==nextb){
-        nexta = generateRandom(1, 12, exclude);
-        nextb = generateRandom(1, 12, exclude);
-    }
-    a = nexta;
-    b = nextb;
-
-    nexta = generateRandom(1, 12, exclude);
-    nextb = generateRandom(1, 12, exclude);
+    [a,b] = [nexta,nextb];
     
-    while(a==nexta && b==nextb){
-        nexta = generateRandom(1, 12, exclude);
-        nextb = generateRandom(1, 12, exclude);
+    count +=1;
+    if (Math.random()> 0.5){ //shuffles the order of the numbers so you don't get 2x2 -> 2x5 -> 2x9 etc
+        [nexta,nextb] = [timesTables[count].including,timesTables[count].j]
+    }else{
+        [nexta,nextb] = [timesTables[count].j,timesTables[count].including]
     }
+    
     questionText = String(a) + " X " + String(b);
     newQuestionText = String(nexta) + " X " + String(nextb);
     
     document.getElementById("currentQuestion").innerText = questionText;
     document.getElementById("nextQuestion").innerText = newQuestionText;
-
+    if(count == timesTables.length - 1){
+        console.log("generating new set of timestables")
+        count = 0;
+        timesTables = [{including:0,j:0},...generateSet(include)]; //matty hack 
+        console.log(timesTables, count);
+    }
 }
 
-// GENERATING SETS OF QUESTIONS (STILL NEED TO FINISH)!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
 function generateSet(includes){
     let setQuestions = []
     for (let i = 0; i < includes.length; i++){
         let including = includes[i]
-        for (let j = including; j < 13; j++){  
-                setQuestions.push({including,j})
+        for (let j = i; j < includes.length; j++){  
+                setQuestions.push({including, j: includes[j]})
         }
     }
     setQuestions = shuffle(setQuestions)
-
     return setQuestions    
 }
 
@@ -85,32 +98,30 @@ function shuffle(array) {
       [array[currentIndex], array[randomIndex]] = [
         array[randomIndex], array[currentIndex]];
     }
-  
     return array;
   }
-console.log(generateSet(include))
+
 // <------------------------------------------------------------------------->
 function readAnswer(){
-    let answer = document.getElementById('userAnswer');
-    console.log(answer);
-    document.getElementById("currentQuestion").classList.toggle("currentQuestion-animate");
-    document.getElementById("nextQuestion").classList.toggle("nextQuestion-animate");
-    setTimeout(()=>{generateQuestion(); document.getElementById("currentQuestion").classList.toggle("currentQuestion-animate"); document.getElementById("nextQuestion").classList.toggle("nextQuestion-animate")},270);
-    
-    if (answer.value == a*b){
-        console.log("correct")
+    if (input.value == a*b){
+        document.getElementById("currentQuestion").classList.toggle("currentQuestion-animate");
+        document.getElementById("nextQuestion").classList.toggle("nextQuestion-animate");
+        setTimeout(()=>{generateQuestion(); document.getElementById("currentQuestion").classList.toggle("currentQuestion-animate"); document.getElementById("nextQuestion").classList.toggle("nextQuestion-animate")},270);
         streak += 1;
         if (streak > highScore){
             highScore = streak;
             document.getElementById("highScore").innerText = "High Score: " + String(highScore);
         }
     }else{
-        console.log("wrong")
-        streak = 0;
+        document.getElementById("currentQuestion").classList.add("apply-shake")
+        document.getElementById("laugh").classList.add("show")
+        setTimeout(function(){document.getElementById("currentQuestion").classList.remove("apply-shake")}, 310)
+        setTimeout(function(){document.getElementById("laugh").classList.remove("show")}, 310)
+        streak = 0;       
     }
-    //generateQuestion();
     document.getElementById("streak").innerText = "Streak: " + String(streak);
-    answer.value = "";
+    input.value = "";
+    input.focus();
 }
 
 input.addEventListener("keypress", function(event){

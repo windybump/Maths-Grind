@@ -1,3 +1,12 @@
+div{
+  color:whitesmoke;
+}
+.unselectable{
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+  pointer-events: none;
+}
 h1 {
     color:whitesmoke;
     text-align: center;
@@ -15,21 +24,19 @@ h1 {
 }
 
 .answers{
-    color: whitesmoke;
     text-align: center;
     margin: 10px;
 }
 
 
 .streak{
-    color: whitesmoke;
+
     text-align: center;
     font-size: x-large;
     margin: 10px;
 
 }
 .highScore{
-    color: whitesmoke;
     text-align: center;
     font-size: x-large;
     margin: 10px;
@@ -118,11 +125,34 @@ main{
     }
 }
 
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
+.apply-shake {
+    animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+
 
 /* CSS FOR NAVBAR */
 .overlay {
     height: 100%;
-    width: 0;
+    width: 350px; /*Was 30% before, I want to change it so it's responsive and the grid for #includeNumbers is responsive*/
     position: fixed;
     z-index: 1;
     top: 0;
@@ -148,6 +178,7 @@ main{
     color: #818181;
     display: block;
     transition: 0.3s;
+    
   }
   
   .overlay a:hover, .overlay a:focus {
@@ -169,3 +200,57 @@ main{
     right: 35px;
     }
   }
+
+
+  #customNav{
+    display:none; /* will only appear when "custom" is selected in the menu */
+  }
+  #includeNumbers{
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    row-gap: 10px;
+    padding: 10px;
+  }
+  .number-tag{
+    width: fit-content;
+    height: fit-content;
+    border-style: solid;
+    border-radius: 30%;
+    font-size: small;
+  }
+  .remove-num{
+    border-style: solid;
+  }
+
+/* Removes up-down arrows on the number input form */
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+input[type=number] {
+  -moz-appearance:textfield;
+}
+
+
+img{
+  opacity: 0;
+  position:absolute;
+  left: 20%;
+  bottom: 10rem;
+  scale: 0.3;
+}
+.show{
+  animation: appear 0.3s;
+}
+@keyframes appear {
+  0%{
+    opacity:0
+    } 
+  50%{
+    opacity:1
+  }
+  100%{
+    opacity:0
+  }
+}

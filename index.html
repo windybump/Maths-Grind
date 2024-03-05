@@ -20,11 +20,32 @@
             </div>
             <div id="myNav" class="overlay">
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                
                 <div class="overlay-content">
-                  <a href="#" onclick="difficulty('easy')">Easy</a>
-                  <a href="#" onclick="difficulty('medium')">Medium</a>
-                  <a href="#" onclick="difficulty('hard')">Hard</a>
-                  <a href="#">Custom</a>
+                  <div id="setDifficulty">
+                    <h1>Choose a difficulty</h1>
+                    <a href="#" onclick="difficulty('easy')">Easy</a>
+                    <a href="#" onclick="difficulty('medium')">Medium</a>
+                    <a href="#" onclick="difficulty('hard')">Hard</a>
+                  </div>
+
+                  <a href="#" onclick="openCustom()">Custom</a>
+                  <div id="customNav">Type numbers you want to include
+                    <input id="inputInclude"> <!--Didn't make input type = number because it created issues with addNumber(),
+                    mainly due turning the input to 0 if a string was passed therefore adding 0 to the includeNumbers div-->
+                    <button id="addNumber">Add</button>
+                    <div id="includeNumbers">
+                       
+
+                    </div>
+                    <!-- <input id="inputExclude"> 
+                    <button id="addNumber">Add</button>
+                    <div id="excludeNumbers">
+                       
+
+                    </div> -->
+                    <button id="submitCustom" onclick="submitNumbers()">Submit</button>
+                  </div>
                 </div>
               </div>
         </div>
@@ -36,14 +57,15 @@
     <main>
         <h1 >Times Tables</h1>
         <!-- css class for the questions -->
-    <div id="currentQuestion" class="questions"></div>
-    <div id="nextQuestion" class="questions"></div>
-
+        <img id="laugh" src="laugh.jpg" class="unselectable">
+        <div id="currentQuestion" class="questions"></div>
+        <div id="nextQuestion" class="questions"></div>
+    
         <!-- css class for answers-->
         <div class ="answers">
             <form autocomplete="off">
                 <div>
-                    <input id="userAnswer" type="text">
+                    <input id="userAnswer" type="number" min="1">
                     <!-- click to submit answer-->
                     <button id="myBtn">Submit</button>
                 </div>
