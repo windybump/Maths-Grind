@@ -9,6 +9,7 @@ function openNav() {
 function closeNav() {
     document.getElementById("myNav").style.transform = "translate(-100%)";
     clearCustom();
+    input.focus();
 }
 
 function openCustom(){
@@ -31,17 +32,37 @@ function submitNumbers(){
 function addNumber(){
   let inputInclude = document.getElementById('inputInclude');
   checkInt = Number(inputInclude.value)
-  if (!isNaN(checkInt) && (checkInt|0) === checkInt && checkInt > 0 && customNumberArray.includes(checkInt) == false && checkInt < 50){
-    clearCustom();
-    for (i = 1; i <= checkInt; i++){ 
-      customNumberArray.push(i)
-      
-      html = '<div id = "tag'+i+'" class = "number-tag">\
-              <a href = "javascript:void(0)" class = "removeNum" id = "'+i+'" onclick="remove(this)">'+i+'</a>\
-              </div>'
-      document.getElementById('includeNumbers').innerHTML += (html);
-    }
+  switch(true){
+    case isNaN(checkInt):
+      badInput("this isn't a number")
+      break;
+    case checkInt > 50:
+      badInput("too big, number must be 49 or smaller")
+      break;
+    case checkInt < 1:
+      badInput("can't be 0 or negative")
+      break;
+    default:
+      clearCustom();
+      for (i = 1; i <= checkInt; i++){ 
+        customNumberArray.push(i)  
+        html = '<div id = "tag'+i+'" class = "number-tag">\
+                <a href = "javascript:void(0)" class = "remove-num" id = "'+i+'" onclick="remove(this)">'+i+'</a>\
+                </div>'
+        document.getElementById('includeNumbers').innerHTML += (html);
+      }
   }
+  // if (!isNaN(checkInt) && (checkInt|0) === checkInt && checkInt > 0 && customNumberArray.includes(checkInt) == false && checkInt < 50){
+  //   clearCustom();
+  //   for (i = 1; i <= checkInt; i++){ 
+  //     customNumberArray.push(i)
+      
+  //     html = '<div id = "tag'+i+'" class = "number-tag">\
+  //             <a href = "javascript:void(0)" class = "remove-num" id = "'+i+'" onclick="remove(this)">'+i+'</a>\
+  //             </div>'
+  //     document.getElementById('includeNumbers').innerHTML += (html);
+  //   }
+  // }
   console.log(customNumberArray)
 
   inputInclude.value = "";
@@ -69,6 +90,19 @@ function clearCustom(){
   inputInclude.value = "";
 }
 
+function badInput(message) {
+  var popup = document.getElementById("badInput");
+  popup.classList.remove("show")
+  popup.innerText = message
+  popup.classList.add("show");
+  console.log(message)
+  setTimeout(function(){popup.classList.remove("show")}, 1900)
+}
+
+function myFunction() {
+  var popup = document.getElementById("myPopup");
+  popup.classList.toggle("show");
+}
 
 document.getElementById("addNumber").addEventListener("click",(event)=>{event.preventDefault();addNumber()} );
 

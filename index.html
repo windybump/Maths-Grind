@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Maths Grind</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
 </head>
 
 
@@ -30,10 +33,17 @@
                   </div>
 
                   <a href="#" onclick="openCustom()">Custom</a>
-                  <div id="customNav">Type numbers you want to include
+                  <div id="customNav"><p class = "nav-text"> Type in a number for the size of the times table you want (e.g 9 will create all the times tables up to 9)</p>
+                    <div class="popup">
+                        <span class="popuptext" id="badInput"></span>
+                    </div> 
                     <input id="inputInclude"> <!--Didn't make input type = number because it created issues with addNumber(),
                     mainly due turning the input to 0 if a string was passed therefore adding 0 to the includeNumbers div-->
                     <button id="addNumber">Add</button>
+                    
+                   
+
+                    <p class = "nav-text">Click on the numbers that you want to remove from the times table list</p>
                     <div id="includeNumbers">
                        
 
@@ -57,19 +67,14 @@
     <main>
         <h1 >Times Tables</h1>
         <!-- css class for the questions -->
-        <img id="laugh" src="laugh.jpg" class="unselectable">
         <div id="currentQuestion" class="questions"></div>
         <div id="nextQuestion" class="questions"></div>
     
         <!-- css class for answers-->
         <div class ="answers">
-            <form autocomplete="off">
-                <div>
+            <form autocomplete="off">               
                     <input id="userAnswer" type="number" min="1">
-                    <!-- click to submit answer-->
                     <button id="myBtn">Submit</button>
-                </div>
-
             </form>
         </div>
         <div id="streak" class="streak"></div>

@@ -1,40 +1,54 @@
-div{
-  color:whitesmoke;
+:root{
+  /* colour scheme */
+  --darkest: #191919;
+  --dark: #69991b;
+  --light: #E3651D;
+  --lightest: #d9ff00;
 }
+
 .unselectable{
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
   pointer-events: none;
 }
+/* GLOBAL STYLING */
+body{
+  background: var(--darkest);
+  font-family: "Nunito", sans-serif;
+}
+div{
+  color:whitesmoke;
+}
+
 h1 {
     color:whitesmoke;
     text-align: center;
 }
+
+/* MAIN TIMES TABLES SECTION */
 .questions {
     color: whitesmoke;
     text-align: center;
     font-size: xx-large; 
     margin: 10px;
 }
-
-#nextQuestion{
-   /*-webkit-mask-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));*/
-   opacity: 0.3;
+#currentQuestion{
+  color: var(--lightest);
+  font-family: "Amazon Ember",sans-serif;
 }
-
+#nextQuestion{
+   opacity: 0.1;
+   font-family: "Amazon Ember",sans-serif;
+}
 .answers{
     text-align: center;
     margin: 10px;
 }
-
-
 .streak{
-
     text-align: center;
     font-size: x-large;
     margin: 10px;
-
 }
 .highScore{
     text-align: center;
@@ -42,31 +56,29 @@ h1 {
     margin: 10px;
 
 }
-
 input{
     border-top: 2px whitesmoke;
     border-left: 2px whitesmoke;
     border-right: 2px whitesmoke;
     background: transparent;
     padding: 12px 20px;
-    margin: 8px 0;
+    margin: 8px 8px;
     color: whitesmoke;
     font-family: "Amazon Ember",sans-serif;
     font-size: xx-large;
 }textarea:focus, input:focus{
     outline: none;
 }
-
 button{
   background-color: #fff;
   border: 1px solid #d5d9d9;
   border-radius: 8px;
   box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
   box-sizing: border-box;
-  color: #0f1111;
+  color: #818181;
   cursor: pointer;
   display: inline-block;
-  font-family: "Amazon Ember",sans-serif;
+  font-family: "Nunito", sans-serif;
   font-size: 20px;
   line-height: 29px;
   padding: 0 10px 0 11px;
@@ -79,30 +91,15 @@ button{
   vertical-align: middle;
   width: 100px;
 }button:hover {
-  background-color: rgba(9,35,121,1);
+  background-color: var(--dark);
   color: whitesmoke;
 }button:focus {
-  border-color: #008296;
+  border-color: #454545;
   box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
   outline: 0;
 }
 
-body{
-    background: rgb(88,0,0);
-    background: linear-gradient(90deg, rgba(88,0,0,1) 0%, rgba(9,35,121,1) 44%, rgba(133,0,255,1) 100%); 
-    font-family: "Amazon Ember",sans-serif;
-    font-family: "Comic Sans";
-}
-main{
-    
-}
-
-
 /* CSS FOR ANIMATIONS OF QUESTIONS */
-.currentQuestion-animate{
-    position:relative;
-    animation:animatetop 0.3s}
-
 @keyframes animatetop{
     from{
         top:0px;opacity:1
@@ -110,21 +107,21 @@ main{
     to{
         top:-30px;opacity:0
     }
+}.currentQuestion-animate{
+  position:relative;
+  animation:animatetop 0.3s
 }
-
-.nextQuestion-animate{
-    position:relative;
-    animation:animatebottom 0.3s}
-
 @keyframes animatebottom{
     from{
-        top:0px;opacity:0.3
+        top:0px;opacity:0.3;
         } 
     to{
-        top:-55px;opacity:1
+        top:-47px;opacity:1; color: var(--lightest); /*47px most preice translation?*/
     }
+}.nextQuestion-animate{
+  position:relative;
+  animation:animatebottom 0.3s
 }
-
 @keyframes shake {
   10%, 90% {
     transform: translate3d(-1px, 0, 0);
@@ -141,36 +138,39 @@ main{
   40%, 60% {
     transform: translate3d(4px, 0, 0);
   }
-}
-
-.apply-shake {
+}.apply-shake {
     animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
 }
 
 
 
 /* CSS FOR NAVBAR */
+button.nav-toggle{
+  background-color: transparent;
+  border-width: 3px;
+  box-shadow: none;
+  color: whitesmoke;
+  padding: 5px 20px;
+  width: auto;
+}
 .overlay {
     height: 100%;
-    width: 350px; /*Was 30% before, I want to change it so it's responsive and the grid for #includeNumbers is responsive*/
+    width: 400px; /*Was 30% before, I want to change it so it's responsive and the grid for #includeNumbers is responsive*/
     position: fixed;
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: rgb(0,0,0);
     background-color: rgba(0,0,0, 0.9);
     overflow-x: hidden;
     transition: 0.5s;
   }
-  
   .overlay-content {
     position: relative;
-    top: 25%;
+    top: 5%;
     width: 100%;
     text-align: center;
     margin-top: 30px;
   }
-  
   .overlay a {
     padding: 8px;
     text-decoration: none;
@@ -180,16 +180,15 @@ main{
     transition: 0.3s;
     
   }
-  
   .overlay a:hover, .overlay a:focus {
-    color: #f1f1f1;
+    color: whitesmoke;
   }
-  
   .overlay .closebtn {
     position: absolute;
-    top: 20px;
-    right: 45px;
+    top: -10px;
+    right: 20px;
     font-size: 60px;
+    padding: 0;
   }
   
   @media screen and (max-height: 450px) {
@@ -200,27 +199,99 @@ main{
     right: 35px;
     }
   }
-
+  .nav-text{
+    padding: 0 15px;
+  }
 
   #customNav{
     display:none; /* will only appear when "custom" is selected in the menu */
   }
+  #inputInclude{
+    width:50%;
+  }
   #includeNumbers{
     display: grid;
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: auto auto auto auto auto;
     row-gap: 10px;
     padding: 10px;
+    vertical-align: middle;
   }
   .number-tag{
     width: fit-content;
     height: fit-content;
     border-style: solid;
-    border-radius: 30%;
+    border-radius: 12px;
     font-size: small;
+    background-color: white;
+    box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
+
+  }.number-tag a:hover{
+    color: whitesmoke;
   }
-  .remove-num{
-    border-style: solid;
+  a.remove-num{
+    padding: 0 8px 0 8px;
+    margin: 0;
+    font-size: xx-large;
   }
+  
+
+/* Popup container */
+.popup {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  left: 50%;
+}
+
+/* The actual popup (appears on top) */
+.popup .popuptext {
+  visibility: hidden;
+  width: 160px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 2;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -80px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class when clicking on the popup container (hide and show the popup) */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 2s;
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  0% {opacity: 0;}
+  25% {opacity: 1;}
+  75%{opacity: 1;}
+  100%{opacity: 0;}
+}
+
+@keyframes fadeIn {
+  0% {opacity: 0;}
+  50% {opacity: 1;}
+  75%{opacity: 1;}
+  100%{opacity: 0;}
+}
 
 /* Removes up-down arrows on the number input form */
 input[type=number]::-webkit-inner-spin-button, 
@@ -230,27 +301,4 @@ input[type=number]::-webkit-outer-spin-button {
 }
 input[type=number] {
   -moz-appearance:textfield;
-}
-
-
-img{
-  opacity: 0;
-  position:absolute;
-  left: 20%;
-  bottom: 10rem;
-  scale: 0.3;
-}
-.show{
-  animation: appear 0.3s;
-}
-@keyframes appear {
-  0%{
-    opacity:0
-    } 
-  50%{
-    opacity:1
-  }
-  100%{
-    opacity:0
-  }
 }
