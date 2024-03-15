@@ -1,9 +1,13 @@
 let customNumberArray = []
 let inputInclude = document.getElementById('inputInclude');
+
 function openNav() {
-        document.getElementById("myNav").style.transform = "translate(0)";
+        navMenu = document.getElementById("myNav");
+        navMenu.style.transform = "translate(0)";
         document.getElementById("setDifficulty").style.display ="block";
         document.getElementById("customNav").style.display ="none";
+        
+        
 }
 
 function closeNav() {
@@ -34,13 +38,13 @@ function addNumber(){
   checkInt = Number(inputInclude.value)
   switch(true){
     case isNaN(checkInt):
-      badInput("this isn't a number")
+      badInput("This isn't a number")
       break;
     case checkInt > 50:
-      badInput("too big, number must be 49 or smaller")
+      badInput("Too big, number must be 49 or smaller")
       break;
     case checkInt < 1:
-      badInput("can't be 0 or negative")
+      badInput("Can't be 0 or negative")
       break;
     default:
       clearCustom();

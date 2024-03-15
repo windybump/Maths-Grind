@@ -4,18 +4,28 @@ let exclude = []
 let include = [1,2,3,4,5,6,7,8,9,10,11,12]
 let timesTables = generateSet(include)
 console.log(timesTables)
-let count = 0;
+
 let [a,b] = [0,0];
 let [nexta,nextb] = [timesTables[0].including,timesTables[0].j];
 
+let count = 0; //counts through the array of times tables
 let streak = 0;
 let highScore = 0;
+let highestStreak = 0;
+let correct = 0;
+let firstTimeCorrect = 0;
+let firstTime = true;
+
+let countdownStarted = false;
+
+
+
+
 
 document.getElementById("myBtn").addEventListener("click",(event)=>{event.preventDefault();readAnswer()} );
 generateQuestion();
 document.getElementById("streak").innerText = "Streak: " + String(streak);
 document.getElementById("highScore").innerText = "High Score: " + String(highScore);
-
 //  generates random number and excludes numbers   
 function generateRandom(min, max, excludes) {
     var num = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -42,7 +52,7 @@ function difficulty(level){
     streak = 0;
     document.getElementById("streak").innerText = "Streak: " + String(streak);
     timesTables = generateSet(include);
-    console.log(timesTables)
+    console.log(timesTables);
     count = 0;
     [a,b] = [0,0]; //resets the questions after adjusting the difficulty
     [nexta,nextb] = [timesTables[0].including,timesTables[0].j]; //otherwise the next question from the previous difficulty will show as the current question
@@ -50,6 +60,7 @@ function difficulty(level){
 }
 
 function generateQuestion(){
+    firstTime = true;
     [a,b] = [nexta,nextb];
     
     count +=1;
@@ -108,19 +119,34 @@ function shuffle(array) {
   }
 
 function readAnswer(){
+    if (countdownStarted == false){
+        countdownStarted = true;
+        timer();
+    }
     if (input.value == a*b){
         document.getElementById("currentQuestion").classList.toggle("currentQuestion-animate");
         document.getElementById("nextQuestion").classList.toggle("nextQuestion-animate");
+        correct +=1;
+        if (firstTime == true){
+            firstTimeCorrect += 1;
+        }
         setTimeout(()=>{generateQuestion(); document.getElementById("currentQuestion").classList.toggle("currentQuestion-animate"); document.getElementById("nextQuestion").classList.toggle("nextQuestion-animate")},270);
         streak += 1;
         if (streak > highScore){
             highScore = streak;
             document.getElementById("highScore").innerText = "High Score: " + String(highScore);
         }
+        
     }else{
+        firstTime = false;
+        if (highestStreak < streak){
+            highestStreak = streak;
+        }
+        streak = 0;  
+        
         document.getElementById("currentQuestion").classList.add("apply-shake")
         setTimeout(function(){document.getElementById("currentQuestion").classList.remove("apply-shake")}, 310)
-        streak = 0;       
+             
     }
     document.getElementById("streak").innerText = "Streak: " + String(streak);
     input.value = "";
@@ -133,3 +159,41 @@ input.addEventListener("keypress", function(event){
         readAnswer();
     }
 });
+
+
+function getScore(modal){
+    input.blur();
+    var span = document.getElementsByClassName("close")[0];
+    modal.style.display = "block";
+
+    span.onclick = function() {
+        modal.style.display = "none";
+        restart();
+    }
+    window.onclick = function(event) {
+        if (event.target == modal) {
+        modal.style.display = "none";
+        restart();
+        }
+    }
+    if (highestStreak < streak){
+        highestStreak = streak;
+    }
+    document.getElementById('correct').innerText = "Correct answers: "+ correct;
+    document.getElementById('highestStreak').innerText = "Highest Streak: "+ highestStreak;
+    document.getElementById('firstTimeCorrect').innerText = "First time correct: "+ firstTimeCorrect;
+
+    let score = Math.floor((firstTimeCorrect/correct)*highestStreak**2);
+    document.getElementById('score').innerText = "Score: "+ score;
+}
+
+function restart(){
+    highestStreak = 0;
+    streak = 0;
+    correct = 0;
+    firstTimeCorrect = 0;
+    countdownStarted = false;
+    resetTime();
+    input.focus();
+    document.getElementById("streak").innerText = "Streak: " + String(streak);
+}

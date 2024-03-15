@@ -6,13 +6,13 @@
   --lightest: #d9ff00;
 }
 
+/* GLOBAL STYLING */
 .unselectable{
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
   pointer-events: none;
 }
-/* GLOBAL STYLING */
 body{
   background: var(--darkest);
   font-family: "Nunito", sans-serif;
@@ -20,11 +20,22 @@ body{
 div{
   color:whitesmoke;
 }
-
-h1 {
+h1{
     color:whitesmoke;
     text-align: center;
 }
+.center{
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.grid-col-span-2{
+  grid-column: span 2;
+}
+
+
 
 /* MAIN TIMES TABLES SECTION */
 .questions {
@@ -54,7 +65,6 @@ h1 {
     text-align: center;
     font-size: x-large;
     margin: 10px;
-
 }
 input{
     border-top: 2px whitesmoke;
@@ -75,7 +85,7 @@ button{
   border-radius: 8px;
   box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
   box-sizing: border-box;
-  color: #818181;
+  color: #1e1e1e;
   cursor: pointer;
   display: inline-block;
   font-family: "Nunito", sans-serif;
@@ -97,6 +107,124 @@ button{
   border-color: #454545;
   box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
   outline: 0;
+}
+
+/* Timer CSS */
+#safeTimer{
+  position: absolute;
+  /* display: grid;
+  grid-template-columns: 1fr 1fr; */
+  left: 70%;
+  top: 8%; /*set it to be level with main bit since it's in the nav header, might need to fix*/
+  background-color: rgba(80, 80, 80, .3);
+  padding: 1rem;
+  border-radius: 8px;
+}
+h2#timerTitle{
+  margin: 0;
+}
+#safeTimerDisplay{
+  font-size: xx-large;
+  margin: 0;
+}
+.timer-settings{
+  background-color: rgba(100, 100, 100, .3);
+  padding: 3px;
+  display: flex;
+  border-radius: 5px;
+  align-items: center;
+}
+a.time-length{
+  background-color: rgba(245, 245, 245, .2);
+  border-radius: 3px;
+  color: whitesmoke;
+  padding: 0px 3px;
+  text-decoration: none;
+  margin: 2px;
+  z-index: 1;
+  /* display: flex;
+  align-items: center; */
+}button.timer-reset{
+  width: fit-content;
+  height: fit-content;
+  scale: 0.85;
+  margin: 5px; 
+}
+@media screen and (max-width: 450px) {
+  #safeTimer{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    height: fit-content;
+    top: 0;
+    left: 0;
+    margin: 0 8px;
+    padding: 8px;
+  }.timer-settings{
+    margin: 5px;
+    padding: 5px;
+  }p#safeTimerDisplay{
+    position: relative;
+    margin: 5px;
+  }
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+/* Modal Content */
+.modal-content {
+  background-color: var(--darkest);
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%;
+  border-radius: 5px;
+}
+#score{
+  width: fit-content;
+  display: inline;
+  
+}
+
+.fa-question-circle-o{
+  margin: 0 10px;
+  display: inline;
+}.fa-question-circle-o:hover .score-tooltip{
+  visibility: visible;
+}
+.score-tooltip{
+  visibility: hidden;
+
+  position: absolute;
+  z-index: 2;
+}#scoreFormula{
+  width:30%;
+  
+}
+
+
+
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 /* CSS FOR ANIMATIONS OF QUESTIONS */
@@ -145,13 +273,19 @@ button{
 
 
 /* CSS FOR NAVBAR */
+.nav-header{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+
+}
 button.nav-toggle{
   background-color: transparent;
   border-width: 3px;
   box-shadow: none;
   color: whitesmoke;
   padding: 5px 20px;
-  width: auto;
+  width: 6rem;
+  height: 3rem;
 }
 .overlay {
     height: 100%;
@@ -211,17 +345,15 @@ button.nav-toggle{
   }
   #includeNumbers{
     display: grid;
-    grid-template-columns: auto auto auto auto auto;
+    grid-template-columns: repeat(auto-fit, minmax(55px,1fr));
     row-gap: 10px;
+    column-gap: 10px;
     padding: 10px;
     vertical-align: middle;
   }
   .number-tag{
-    width: fit-content;
-    height: fit-content;
-    border-style: solid;
+    border: 1px solid white;
     border-radius: 12px;
-    font-size: small;
     background-color: white;
     box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
 
@@ -229,9 +361,8 @@ button.nav-toggle{
     color: whitesmoke;
   }
   a.remove-num{
-    padding: 0 8px 0 8px;
+    padding: 0px 0px 0 0px;
     margin: 0;
-    font-size: xx-large;
   }
   
 
