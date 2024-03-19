@@ -21,7 +21,7 @@
                     <i class="fa fa-bars"></i>
                 </button>
                 <div id="safeTimer">
-                    <h2 class = "grid-col-span-2" id = "timerTitle">Timer</h2> 
+                    <h2 class = "" id = "timerTitle">Timer</h2> 
                     <p id="safeTimerDisplay"></p>
                      
                     <div class = "timer-settings">
@@ -43,9 +43,15 @@
                 <div class="overlay-content">
                   <div id="setDifficulty">
                     <h1>Choose a difficulty</h1>
-                    <a href="#" onclick="difficulty('easy')">Easy</a>
-                    <a href="#" onclick="difficulty('medium')">Medium</a>
-                    <a href="#" onclick="difficulty('hard')">Hard</a>
+                    <a href="#" class="difficulty" onclick="difficulty('easy')">Easy</a>
+                    <span class="difficulty-tooltip" id="easy-tooltip">Doesn't include 6,7,8,9 & 12 times tables</span>
+                    <a href="#" class="difficulty"onclick="difficulty('medium')">Medium</a>
+                    <span class="difficulty-tooltip" id="medium-tooltip" >Doesn't include 7,8 & 12 times tables</span>
+                    <a href="#" class="difficulty"onclick="difficulty('hard')">Hard</a>
+                    <span class="difficulty-tooltip" id="hard-tooltip">Doesn't include 1,2,5 & 10 times tables</span>
+                    <a href="#" class="difficulty" onclick="difficulty('full')">Full</a>
+                    <span class="difficulty-tooltip" id="hard-tooltip">Includes all times tables from 1 to 12</span>
+
                   </div>
 
                   <a href="#" onclick="openCustom()">Custom</a>
@@ -82,8 +88,8 @@
     <!-- main part which generates the time table questions and inputs etc-->
     <main>
        
-        <h1 >Times Tables</h1>
-       
+        <h1>Times Tables</h1>
+        <h1 id="difficultyState"></h1>
         <script src="timer.js"></script>
         <!-- css class for the questions -->
         <div id="currentQuestion" class="questions"></div>
@@ -104,6 +110,8 @@
             <!-- Modal content -->
             <div class="modal-content">
               <a href="javascript:void(0)" class="close">&times;</a>
+              <p id="time">Time: </p>
+              <p id="difficulty"></p>
               <p id = "correct"> Correct answers: </p>
               <p id = "firstTimeCorrect"> First time correct: </p>
               <p id = "highestStreak"> Highest Streak: </p>

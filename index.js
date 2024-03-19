@@ -3,11 +3,11 @@ input.focus();
 let exclude = []
 let include = [1,2,3,4,5,6,7,8,9,10,11,12]
 let timesTables = generateSet(include)
-console.log(timesTables)
 
 let [a,b] = [0,0];
 let [nexta,nextb] = [timesTables[0].including,timesTables[0].j];
 
+let difficultyState = "Full"
 let count = 0; //counts through the array of times tables
 let streak = 0;
 let highScore = 0;
@@ -15,13 +15,9 @@ let highestStreak = 0;
 let correct = 0;
 let firstTimeCorrect = 0;
 let firstTime = true;
-
 let countdownStarted = false;
 
-
-
-
-
+document.getElementById("difficultyState").innerText = difficultyState;
 document.getElementById("myBtn").addEventListener("click",(event)=>{event.preventDefault();readAnswer()} );
 generateQuestion();
 document.getElementById("streak").innerText = "Streak: " + String(streak);
@@ -36,27 +32,29 @@ function difficulty(level){
     switch (level){
         case "easy":
             include = [1,2,3,4,5,10,11];
+            difficultyState = "Easy"
             break;
         case "medium":
             include = [1,2,3,4,5,6,9,10,11];
+            difficultyState = "Medium"
+
             break;
         case "hard":
-            include = [2,3,4,5,6,7,8,9,11,12];
+            include = [3,4,5,6,7,8,9,11,12];
+            difficultyState = "Hard"
+            break;
+        case "full":
+            include = [1,2,3,4,5,6,7,8,9,10,11,12];
+            difficultyState = "Full"
             break;
         case "custom":
-            console.log("include numbers:");
-            console.log(customNumberArray);
             include = customNumberArray;
+            difficultyState = "Custom"
     }
+
     closeNav();
-    streak = 0;
-    document.getElementById("streak").innerText = "Streak: " + String(streak);
-    timesTables = generateSet(include);
-    console.log(timesTables);
-    count = 0;
-    [a,b] = [0,0]; //resets the questions after adjusting the difficulty
-    [nexta,nextb] = [timesTables[0].including,timesTables[0].j]; //otherwise the next question from the previous difficulty will show as the current question
-    generateQuestion();    
+    document.getElementById("difficultyState").innerText = difficultyState;
+    restart(); 
 }
 
 function generateQuestion(){
@@ -76,10 +74,8 @@ function generateQuestion(){
     document.getElementById("currentQuestion").innerText = questionText;
     document.getElementById("nextQuestion").innerText = newQuestionText;
     if(count == timesTables.length - 1){
-        console.log("generating new set of timestables")
         count = 0;
         timesTables = [{including:0,j:0},...generateSet(include)]; //matty hack 
-        console.log(timesTables, count);
     }
 }
 
@@ -165,6 +161,9 @@ function getScore(modal){
     input.blur();
     var span = document.getElementsByClassName("close")[0];
     modal.style.display = "block";
+    let minutes = Math.floor(time/60);
+    let seconds = time % 60;
+    
 
     span.onclick = function() {
         modal.style.display = "none";
@@ -179,6 +178,16 @@ function getScore(modal){
     if (highestStreak < streak){
         highestStreak = streak;
     }
+    
+    if (seconds < 10) {
+        seconds = `0${seconds}`;
+    }
+    if (time == 0){
+        document.getElementById('time').innerText="Endless";
+    }else{
+        document.getElementById('time').innerHTML="Time: "+ `${minutes}:${seconds}`;
+    }
+    document.getElementById('difficulty').innerText = "Difficulty: "+ difficultyState;
     document.getElementById('correct').innerText = "Correct answers: "+ correct;
     document.getElementById('highestStreak').innerText = "Highest Streak: "+ highestStreak;
     document.getElementById('firstTimeCorrect').innerText = "First time correct: "+ firstTimeCorrect;
@@ -193,7 +202,13 @@ function restart(){
     correct = 0;
     firstTimeCorrect = 0;
     countdownStarted = false;
-    resetTime();
+
+    updateTime(time);
     input.focus();
     document.getElementById("streak").innerText = "Streak: " + String(streak);
+    timesTables = generateSet(include);
+    count = 0;
+    [a,b] = [0,0]; //resets the questions after adjusting the difficulty
+    [nexta,nextb] = [timesTables[0].including,timesTables[0].j]; //otherwise the next question from the previous difficulty will show as the current question
+    generateQuestion();   
 }

@@ -15,9 +15,10 @@ function closeNav() {
     clearCustom();
     input.focus();
 }
-
+function showToolTip(){
+  document.getElementById("easy-tooltip").classList.add('show-tooltip');
+}
 function openCustom(){
-    console.log("custom selected")
     document.getElementById("setDifficulty").style.display ="none";
     document.getElementById("customNav").style.display ="block";
     document.getElementById('inputInclude').focus();
@@ -56,33 +57,19 @@ function addNumber(){
         document.getElementById('includeNumbers').innerHTML += (html);
       }
   }
-  // if (!isNaN(checkInt) && (checkInt|0) === checkInt && checkInt > 0 && customNumberArray.includes(checkInt) == false && checkInt < 50){
-  //   clearCustom();
-  //   for (i = 1; i <= checkInt; i++){ 
-  //     customNumberArray.push(i)
-      
-  //     html = '<div id = "tag'+i+'" class = "number-tag">\
-  //             <a href = "javascript:void(0)" class = "remove-num" id = "'+i+'" onclick="remove(this)">'+i+'</a>\
-  //             </div>'
-  //     document.getElementById('includeNumbers').innerHTML += (html);
-  //   }
-  // }
-  console.log(customNumberArray)
-
   inputInclude.value = "";
   inputInclude.focus();
 }
 
 function remove(button){
   let number = button.id;
-  console.log(number)
+
   let tag = document.getElementById('tag'+number);
-  console.log(tag);
+
   tag.remove();
   let index = customNumberArray.indexOf(Number(number));
   customNumberArray.splice(index,1);
   inputInclude.focus();
-  console.log(customNumberArray);
 }
 
 function clearCustom(){
@@ -99,7 +86,6 @@ function badInput(message) {
   popup.classList.remove("show")
   popup.innerText = message
   popup.classList.add("show");
-  console.log(message)
   setTimeout(function(){popup.classList.remove("show")}, 1900)
 }
 

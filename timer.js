@@ -6,7 +6,6 @@ updateTime(time);
 function timer(){
     
     if (time != 0){
-        console.log("timer started")
         sec = time;
         let timer = setInterval(function(){
             updateTime(sec);
@@ -24,33 +23,21 @@ function timer(){
     }         
 }
 
-function resetTime() {
-    updateTime(time);
-}
-
 function setTime(selectedTime){
  switch (selectedTime){
     case 1:
-        console.log("1 minute")
         time = 60;
-        restart();
         break;
     case 2:
-        console.log("2 minutes")
         time = 120;
-        restart();
-
         break;
     case 5:
-        console.log("5 minutes")
         time = 300;
-        restart();   
         break;
     case 0:   
         time = 0;
-        restart();
-
     }    
+    restart();
 }
 
 function updateTime(updatedTime){
