@@ -1,12 +1,11 @@
 let input = document.getElementById('userAnswer');
-
 input.focus();
+
 let exclude = []
 let include = [1,2,3,4,5,6,7,8,9,10,11,12]
 let shuffleOn = true;
 
 let timesTables = generateSet(include)
-
 
 let [a,b] = [0,0];
 let [nexta,nextb] = [timesTables[0].including,timesTables[0].j];
@@ -198,12 +197,10 @@ function getScore(modal){
     
 
     span.onclick = function() {
-        
         restart();
     }
     window.onclick = function(event) {
         if (event.target == modal) {
-        
         restart();
         }
     }
@@ -222,17 +219,20 @@ function getScore(modal){
 
 
     document.getElementById('difficulty').innerText = difficultyState;
+    let score = Math.floor((firstTimeCorrect/correct)*highestStreak**2);
     if (shuffleOn){
         document.getElementById('shuffle').innerText = "On";
+        document.getElementById('score').innerText = score;
     }else{
         document.getElementById('shuffle').innerText = "Off";
+        document.getElementById('score').innerText = "No score when shuffle is off";
     }
     document.getElementById('correct').innerText = correct;
     document.getElementById('highestStreak').innerText = highestStreak;
     document.getElementById('firstTimeCorrect').innerText = firstTimeCorrect;
 
-    let score = Math.floor((firstTimeCorrect/correct)*highestStreak**2);
-    document.getElementById('score').innerText = score;
+    
+    
 }
 
 function restart(){

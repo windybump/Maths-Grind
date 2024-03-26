@@ -1,6 +1,5 @@
-let time = 60;
+let time = 2;
 updateTime(time);
-
 
 
 function timer(){
@@ -51,5 +50,4 @@ function updateTime(updatedTime){
     }else{
         document.getElementById('safeTimerDisplay').innerHTML=`${minutes}:${seconds}`;
     }
-    
 }

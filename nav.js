@@ -91,7 +91,6 @@ function addNumber(){
 
 function remove(button){
   let number = button.id;
-
   let tag = document.getElementById('tag'+number);
 
   tag.remove();
@@ -124,7 +123,6 @@ function myFunction() {
 }
 
 document.getElementById("addNumber").addEventListener("click",(event)=>{event.preventDefault();addNumber()} );
-
 inputInclude.addEventListener("keypress", function(event){
   if (event.key == "Enter"){
       event.preventDefault();
