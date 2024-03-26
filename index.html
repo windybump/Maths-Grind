@@ -21,14 +21,14 @@
                     <i class="fa fa-bars"></i>
                 </button>
                 <div id="safeTimer">
-                    <h2 class = "" id = "timerTitle">Timer</h2> 
+                    <h2 id = "timerTitle">Timer</h2> 
                     <p id="safeTimerDisplay"></p>
                      
-                    <div class = "timer-settings">
-                        <a class = "time-length" href="#" onclick="setTime(1)">1m</a>
-                        <a class = "time-length" href="#" onclick="setTime(2)">2m</a>
-                        <a class = "time-length" href="#" onclick="setTime(5)">5m</a>
-                        <a class = "time-length" href="#" onclick="setTime(0)">&#8734;</a>
+                    <div class="timer-settings">
+                        <a class="time-length" href="#" onclick="setTime(1)">1m</a>
+                        <a class="time-length" href="#" onclick="setTime(2)">2m</a>
+                        <a class="time-length" href="#" onclick="setTime(5)">5m</a>
+                        <a class="time-length" href="#" onclick="setTime(0)">&#8734;</a>
                         <button class="timer-reset" onclick="restart()">
                             <i class="fa fa-undo" aria-hidden="true"></i>
                         </button>
@@ -37,6 +37,9 @@
                 </div>
                 
             </div>
+            <div class="popup">
+                <span class="popuptext" id="badInput"></span>
+            </div> 
             <div id="myNav" class="overlay">
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                 
@@ -44,21 +47,21 @@
                   <div id="setDifficulty">
                     <h1>Choose a difficulty</h1>
                     <a href="#" class="difficulty" onclick="difficulty('easy')">Easy</a>
-                    <span class="difficulty-tooltip" id="easy-tooltip">Doesn't include 6,7,8,9 & 12 times tables</span>
+                    <span class="difficulty-tooltip" id="easy-tooltip">Doesn't include 6, 7, 8, 9 & 12 times tables</span>
                     <a href="#" class="difficulty"onclick="difficulty('medium')">Medium</a>
-                    <span class="difficulty-tooltip" id="medium-tooltip" >Doesn't include 7,8 & 12 times tables</span>
+                    <span class="difficulty-tooltip" id="medium-tooltip" >Doesn't include 7, 8 & 12 times tables</span>
                     <a href="#" class="difficulty"onclick="difficulty('hard')">Hard</a>
-                    <span class="difficulty-tooltip" id="hard-tooltip">Doesn't include 1,2,5 & 10 times tables</span>
+                    <span class="difficulty-tooltip" id="hard-tooltip">Doesn't include 1, 2, 5 & 10 times tables</span>
                     <a href="#" class="difficulty" onclick="difficulty('full')">Full</a>
                     <span class="difficulty-tooltip" id="hard-tooltip">Includes all times tables from 1 to 12</span>
 
                   </div>
 
-                  <a href="#" onclick="openCustom()">Custom</a>
-                  <div id="customNav"><p class = "nav-text"> Type in a number for the size of the times table you want (e.g 9 will create all the times tables up to 9)</p>
-                    <div class="popup">
-                        <span class="popuptext" id="badInput"></span>
-                    </div> 
+                  <a href="#" class="difficulty" id="customLink" onclick="openCustom()">Custom</a>
+                  <span class="difficulty-tooltip" id="custom-tooltip">Create your own times tables</span>
+                  <div id="customNav" class="no-display">
+                    <p class = "nav-text"> Type in a number for the size of the times table you want (e.g 9 will create all the times tables up to 9)</p>
+                    
                     <input id="inputInclude"> <!--Didn't make input type = number because it created issues with addNumber(),
                     mainly due turning the input to 0 if a string was passed therefore adding 0 to the includeNumbers div-->
                     <button id="addNumber">Add</button>
@@ -66,17 +69,17 @@
                    
 
                     <p class = "nav-text">Click on the numbers that you want to remove from the times table list</p>
-                    <div id="includeNumbers">
-                       
-
-                    </div>
-                    <!-- <input id="inputExclude"> 
-                    <button id="addNumber">Add</button>
-                    <div id="excludeNumbers">
-                       
-
-                    </div> -->
-                    <button id="submitCustom" onclick="submitNumbers()">Apply</button>
+                    <div id="includeNumbers"></div>
+                    <button id="submitCustom" onclick="submitNumbers('custom')">Apply</button>
+                  </div>
+                  
+                  <a href="#" class="difficulty"  id="singularLink" onclick="openSingular()">Singular</a>
+                  <span class="difficulty-tooltip" id="single-tooltip">Practice a single times table</span>
+                  <div id = "singularNav" class="no-display">
+                    <p>Practice a single times table</p>
+                    
+                    <input id="inputSingular">
+                    <button id="submitSingular" onclick="submitNumbers('singular')">Apply</button>
                   </div>
                 </div>
               </div>
@@ -89,11 +92,24 @@
     <main>
        
         <h1>Times Tables</h1>
+        <div id = "shuffleButton">
+            <label class="switch">
+                <input type="checkbox" id = "shuffleToggle" onclick="checkShuffle(this)" checked>
+                <span class="slider">
+                    <p class = "off unselectable">OFF</p>
+                    <p class = "on unselectable">ON</p>
+                </span> 
+                <span class="toggle-label">Shuffle</span>  
+            </label>
+        </div>
+       
+
+
         <h1 id="difficultyState"></h1>
         <script src="timer.js"></script>
         <!-- css class for the questions -->
-        <div id="currentQuestion" class="questions"></div>
-        <div id="nextQuestion" class="questions"></div>
+        <div id="currentQuestion" class="questions unselectable"></div>
+        <div id="nextQuestion" class="questions unselectable"></div>
     
         <!-- css class for answers-->
         <div class ="answers">
@@ -110,18 +126,25 @@
             <!-- Modal content -->
             <div class="modal-content">
               <a href="javascript:void(0)" class="close">&times;</a>
-              <p id="time">Time: </p>
-              <p id="difficulty"></p>
-              <p id = "correct"> Correct answers: </p>
-              <p id = "firstTimeCorrect"> First time correct: </p>
-              <p id = "highestStreak"> Highest Streak: </p>
-              <p id = "score"> Score: </p>
-              <i class="fa fa-question-circle-o" aria-hidden="true">
-                <span class="score-tooltip">
-                    <img id="scoreFormula" src="formula.jpg">
-                </span> <!-- add formula for the ting!!???-->
-              </i>
-
+              <div class="stats">
+                <p1>Time:</p1> <p2 id="time">0</p2>
+                <p1>Difficulty:</p1> <p2 id="difficulty">0</p2>
+                <p1>Shuffle:</p1> <p2 id="shuffle">0</p2>
+                <div style = "visibility: hidden;">321</div><div style = "visibility: hidden;">321</div> 
+                <!--silly hack to divide the sections-->
+                <p1>Correct answers:</p1> <p2  id = "correct">0</p2>
+                <p1>First time correct:</p1> <p2 id = "firstTimeCorrect">0</p2>
+                <p1>Highest Streak:</p1> <p2 id = "highestStreak">0</p2>
+                <p1> Score:
+                    <i class="fa fa-question-circle-o" aria-hidden="true">
+                        <span class="score-tooltip">
+                            <img id="scoreFormula" src="formula.jpg">
+                        </span> <!-- add formula for the ting!!???-->
+                    </i> 
+                </p1>
+                <p2  id = "score">0</p2>
+                
+              </div>
             </div>
           
         </div>

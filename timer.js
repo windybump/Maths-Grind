@@ -1,10 +1,9 @@
-let time = 60;
+let time = 2;
 updateTime(time);
 
 
 
 function timer(){
-    
     if (time != 0){
         sec = time;
         let timer = setInterval(function(){

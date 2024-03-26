@@ -1,8 +1,12 @@
 let input = document.getElementById('userAnswer');
+
 input.focus();
 let exclude = []
 let include = [1,2,3,4,5,6,7,8,9,10,11,12]
+let shuffleOn = true;
+
 let timesTables = generateSet(include)
+
 
 let [a,b] = [0,0];
 let [nexta,nextb] = [timesTables[0].including,timesTables[0].j];
@@ -17,6 +21,9 @@ let firstTimeCorrect = 0;
 let firstTime = true;
 let countdownStarted = false;
 
+
+
+document.getElementById("shuffleToggle").checked = true;
 document.getElementById("difficultyState").innerText = difficultyState;
 document.getElementById("myBtn").addEventListener("click",(event)=>{event.preventDefault();readAnswer()} );
 generateQuestion();
@@ -50,6 +57,10 @@ function difficulty(level){
         case "custom":
             include = customNumberArray;
             difficultyState = "Custom"
+            break;
+        case "singular":
+            include = ["singular", singularNumber]
+            difficultyState = "Singular: "+include[1];
     }
 
     closeNav();
@@ -62,10 +73,14 @@ function generateQuestion(){
     [a,b] = [nexta,nextb];
     
     count +=1;
-    if (Math.random()> 0.5){ //shuffles the order of the numbers so you don't get 2x2 -> 2x5 -> 2x9 etc
-        [nexta,nextb] = [timesTables[count].including,timesTables[count].j]
+    if (shuffleOn == true){
+        if (Math.random()> 0.5){ //shuffles the order of the numbers so you don't get 2x2 -> 2x5 -> 2x9 etc
+            [nexta,nextb] = [timesTables[count].including,timesTables[count].j]
+        }else{
+            [nexta,nextb] = [timesTables[count].j,timesTables[count].including]
+        }
     }else{
-        [nexta,nextb] = [timesTables[count].j,timesTables[count].including]
+        [nexta,nextb] = [timesTables[count].including,timesTables[count].j]
     }
     
     questionText = String(a) + " X " + String(b);
@@ -81,22 +96,39 @@ function generateQuestion(){
 
 function generateSet(includes){
     let setQuestions = []
-    if (includes.length > 1){
-        for (let i = 0; i < includes.length; i++){
-            let including = includes[i]
-            for (let j = i; j < includes.length; j++){  
-                    setQuestions.push({including, j: includes[j]})
-            }
+    if (isNaN(includes[0])){
+        let max = Math.max(Number(includes[1])+1, 13);
+        for (let i = 1; i < max; i++){
+            setQuestions.push({including: i,j:includes[1]});
         }
-        setQuestions = shuffle(setQuestions)
+        if (shuffleOn == true){
+            setQuestions = shuffle(setQuestions);
+        }
     }else{
-        for(x=0;x<=2;x++){
-            setQuestions.push({including: includes[0], j: includes[0]})
-        }
-    }  
+        if (includes.length > 1){
+            for (let i = 0; i < includes.length; i++){
+                let including = includes[i]
+                for (let j = i; j < includes.length; j++){  
+                        setQuestions.push({including, j: includes[j]});
+                }
+            }
+            if (shuffleOn == true){
+                setQuestions = shuffle(setQuestions);
+            }
+        }else{
+            for(x=0;x<=2;x++){
+                setQuestions.push({including: includes[0], j: includes[0]})
+            }
+        }  
+    }
+    console.log(setQuestions)
     return setQuestions    
 }
-
+function checkShuffle(toggleSwitch){
+    shuffleOn = toggleSwitch.checked;
+    console.log(toggleSwitch.checked);
+    restart();
+}
 function shuffle(array) {
     let currentIndex = array.length,  randomIndex;
   
@@ -166,12 +198,12 @@ function getScore(modal){
     
 
     span.onclick = function() {
-        modal.style.display = "none";
+        
         restart();
     }
     window.onclick = function(event) {
         if (event.target == modal) {
-        modal.style.display = "none";
+        
         restart();
         }
     }
@@ -185,15 +217,22 @@ function getScore(modal){
     if (time == 0){
         document.getElementById('time').innerText="Endless";
     }else{
-        document.getElementById('time').innerHTML="Time: "+ `${minutes}:${seconds}`;
+        document.getElementById('time').innerHTML=`${minutes}:${seconds}`;
     }
-    document.getElementById('difficulty').innerText = "Difficulty: "+ difficultyState;
-    document.getElementById('correct').innerText = "Correct answers: "+ correct;
-    document.getElementById('highestStreak').innerText = "Highest Streak: "+ highestStreak;
-    document.getElementById('firstTimeCorrect').innerText = "First time correct: "+ firstTimeCorrect;
+
+
+    document.getElementById('difficulty').innerText = difficultyState;
+    if (shuffleOn){
+        document.getElementById('shuffle').innerText = "On";
+    }else{
+        document.getElementById('shuffle').innerText = "Off";
+    }
+    document.getElementById('correct').innerText = correct;
+    document.getElementById('highestStreak').innerText = highestStreak;
+    document.getElementById('firstTimeCorrect').innerText = firstTimeCorrect;
 
     let score = Math.floor((firstTimeCorrect/correct)*highestStreak**2);
-    document.getElementById('score').innerText = "Score: "+ score;
+    document.getElementById('score').innerText = score;
 }
 
 function restart(){
@@ -202,8 +241,9 @@ function restart(){
     correct = 0;
     firstTimeCorrect = 0;
     countdownStarted = false;
-
+    document.getElementById("scoreModal").style.display = "none";
     updateTime(time);
+    input.value = "";
     input.focus();
     document.getElementById("streak").innerText = "Streak: " + String(streak);
     timesTables = generateSet(include);

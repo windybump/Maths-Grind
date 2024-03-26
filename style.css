@@ -1,8 +1,8 @@
 :root{
   /* colour scheme */
   --darkest: #191919;
-  --dark: #69991b;
-  --light: #E3651D;
+  --dark: rgba(245, 245, 245, .3);
+  --light: rgba(245, 245, 245, 0.934);
   --lightest: #d9ff00;
 }
 
@@ -34,7 +34,9 @@ h1{
 .grid-col-span-2{
   grid-column: span 2;
 }
-
+.no-display{
+  display: none;
+}
 
 
 /* MAIN TIMES TABLES SECTION */
@@ -109,16 +111,91 @@ button{
   outline: 0;
 }
 
+/* Toggle shuffle */
+#shuffleButton{
+  background-color: #555;
+}
+.switch {
+  position: absolute;
+  display: inline-block;
+  width: 80px;
+  height: 34px;
+  top: 280px;
+  left: 65%; /* So that it's inline with timer*/
+  z-index: 1;
+  color: whitesmoke;
+  
+}
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.slider {
+  display: inline;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--dark);
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 8px;
+}.off{
+  position: absolute;
+  color: black;
+  top: -10px;
+  right: 43px;
+}.on{
+  position: absolute;
+  color: black;
+  top: -10px;
+  left: 46px;
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 36px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 5px;
+}
+input:checked + .slider{
+  /* background-color: #2196F3; */
+  background-color: var(--light);
+}
+input:focus + .slider {
+  /* box-shadow: 0 0 1px #2196F3; */
+  box-shadow: 0 0 1px var(--light);
+}
+input:checked + .slider:before {
+  -webkit-transform: translateX(36px);
+  -ms-transform: translateX(36px);
+  transform: translateX(36px);
+}
+.toggle-label {
+  margin-left: 90px;
+  position: relative;
+  top: -18px;
+}
+
 /* Timer CSS */
 #safeTimer{
   position: absolute;
   /* display: grid;
   grid-template-columns: 1fr 1fr; */
-  left: 70%;
-  top: 8%; /*set it to be level with main bit since it's in the nav header, might need to fix*/
+  left: 65%;
+  top:100px; /*set it to be level with main bit since it's in the nav header, might need to fix*/
   background-color: rgba(80, 80, 80, .3);
   padding: 1rem;
   border-radius: 8px;
+  
 }
 h2#timerTitle{
   margin: 0;
@@ -156,8 +233,8 @@ button.timer-reset{
 
 
 /* The Modal (background) */
-.modal {
-  display: none; /* Hidden by default */
+.modal{
+  display: none; /* none by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
   padding-top: 100px; /* Location of the box */
@@ -169,13 +246,30 @@ button.timer-reset{
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 /* Modal Content */
-.modal-content {
+.modal-content{
   background-color: var(--darkest);
   margin: auto;
   padding: 20px;
   border: 1px solid #888;
   width: fit-content;
   border-radius: 5px;
+}
+.stats{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 15px;
+  row-gap: 5px;
+}
+.stats > p1{
+  background-color: var(--darkest);
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+.stats > p2{
+  background-color: var(--dark);
+  border-radius: 5px;
+  padding: 5px 10px;
+  width: fit-content;
 }
 #score{
   width: fit-content;
@@ -200,10 +294,17 @@ button.timer-reset{
 }
 
 .difficulty-tooltip{
-  display: none;
-  z-index: 2;
+  visibility: hidden;
+  
 }.difficulty:hover + .difficulty-tooltip{
-  display: block;
+  visibility: visible;
+  animation: animatetip 1s;
+}@keyframes animatetip{
+  from{
+    opacity: 0;
+  }to{
+    opacity: 1;
+  }
 }
 
 
@@ -283,12 +384,13 @@ button.nav-toggle{
     height: 100%;
     width: 400px; /*Was 30% before, I want to change it so it's responsive and the grid for #includeNumbers is responsive*/
     position: fixed;
-    z-index: 1;
+    z-index: 10;
     top: 0;
     left: 0;
     background-color: rgba(0,0,0, 0.9);
     overflow-x: hidden;
     transition: 0.5s;
+  
   }
   .overlay-content {
     position: relative;
@@ -329,9 +431,9 @@ button.nav-toggle{
     padding: 0 15px;
   }
 
-  #customNav{
-    display:none; /* will only appear when "custom" is selected in the menu */
-  }
+  /* #customNav {
+    display:none;
+  } */
   #inputInclude{
     width:50%;
   }
@@ -376,10 +478,10 @@ button.nav-toggle{
   border-radius: 6px;
   padding: 8px 0;
   position: absolute;
-  z-index: 2;
-  bottom: 125%;
-  left: 50%;
-  margin-left: -80px;
+  z-index: 11;
+  top: 100px;
+  left: 25%;
+  margin-left: -900px;
 }
 
 /* Popup arrow */
@@ -452,4 +554,15 @@ input[type=number] {
   }#scoreFormula{
     width:100%;
   }
+
+  .switch{
+    display: block;
+    top:68px;
+    left:15px; 
+   }.toggle-label{
+     display: block;
+     position: relative;
+     margin-left: 11px;
+     top: 15px;
+   }
 }
