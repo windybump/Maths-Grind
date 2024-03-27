@@ -1,4 +1,4 @@
-let time = 2;
+let time = 60;
 updateTime(time);
 
 

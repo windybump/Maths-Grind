@@ -114,13 +114,14 @@ button{
 /* Toggle shuffle */
 #shuffleButton{
   background-color: #555;
+  font-weight: bold;
 }
 .switch {
   position: absolute;
   display: inline-block;
   width: 80px;
   height: 34px;
-  top: 280px;
+  top: 270px;
   left: 65%; /* So that it's inline with timer*/
   z-index: 1;
   color: whitesmoke;
@@ -167,12 +168,10 @@ button{
   border-radius: 5px;
 }
 input:checked + .slider{
-  /* background-color: #2196F3; */
   background-color: var(--light);
 }
 input:focus + .slider {
-  /* box-shadow: 0 0 1px #2196F3; */
-  box-shadow: 0 0 1px var(--light);
+  box-shadow: 0 0 3px var(--darkest);
 }
 input:checked + .slider:before {
   -webkit-transform: translateX(36px);
@@ -199,6 +198,7 @@ input:checked + .slider:before {
 }
 h2#timerTitle{
   margin: 0;
+  display: inline;
 }
 #safeTimerDisplay{
   font-size: xx-large;
@@ -431,9 +431,6 @@ button.nav-toggle{
     padding: 0 15px;
   }
 
-  /* #customNav {
-    display:none;
-  } */
   #inputInclude{
     width:50%;
   }
@@ -458,7 +455,23 @@ button.nav-toggle{
     padding: 0px 0px 0 0px;
     margin: 0;
   }
-  
+.login-button{
+  display: inline-block;
+  position: relative;
+  font-size: 1rem;
+  color: white;
+  background-color: var(--dark);
+  width: 80px;
+  height: fit-content;
+  padding: 8px;
+  border-radius: 8px;
+  top: 20px;
+  text-align: center;
+  right: 2px;
+
+  visibility: hidden;
+}  
+
 
 /* Popup container */
 .popup {
@@ -532,37 +545,54 @@ input[type=number] {
 
 /* Responsive design for phones */
 @media screen and (max-width: 770px) {
-  h2#timerTitle{
-    display: inline;
-    width:fit-content;
-  }
-  #safeTimer{
-    position: relative;
-    height: fit-content;
-    width: fit-content;
-    top: 0;
-    left: 0;
-    margin: 0 8px;
-    padding: 8px;
-  }.timer-settings{
-    margin: 5px;
-    padding: 5px;
-  }p#safeTimerDisplay{
-    position: relative;
-    display: inline;
-    margin: 5px;
-  }#scoreFormula{
-    width:100%;
-  }
-
-  .switch{
-    display: block;
-    top:68px;
-    left:15px; 
-   }.toggle-label{
-     display: block;
-     position: relative;
-     margin-left: 11px;
-     top: 15px;
+   .nav-header{
+    height:50px;
    }
+   button.nav-toggle{
+    background-color: transparent;
+    border-width: 3px;
+    box-shadow: none;
+    color: whitesmoke;
+    padding: 5px 5px;
+    width: 6rem;
+    height: 3rem;
+  }
+  .login-button{
+    top:10px;
+  }
+   .settings-container{
+    top:0;
+    height: 100px;
+   }
+   #safeTimer{
+    display: inline;
+    top: 0;
+    left: 120px;
+    padding: 0.5rem;
+    margin: 5px 0 0 0;
+   }
+   h2#timerTitle{
+    font-size: large;
+   }
+   #safeTimerDisplay{
+    display:inline;
+    margin: 5px;
+    font-size: large;
+   }
+   .switch {
+    display: block;
+    width: 80px;
+    height: 34px;
+    top: 95px;
+    left: 120px;
+    margin: 0 0 0 0;
+  }
+  #userAnswer{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+    width: 300px;
+  }
+  
 }
