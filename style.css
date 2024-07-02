@@ -7,6 +7,11 @@
 }
 
 /* GLOBAL STYLING */
+*{
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
 .unselectable{
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
@@ -19,6 +24,9 @@ body{
 }
 div{
   color:whitesmoke;
+}
+a:link, a:visited{
+  color: white;
 }
 h1{
     color:whitesmoke;
@@ -146,7 +154,25 @@ button{
   box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
   outline: 0;
 }
-
+#specialLink{
+  background: linear-gradient(45deg,#002024, #12beb9);
+  background-size: 500%;
+  box-shadow: 0 4px 15px 0 rgba(45, 54, 65, 0.75);
+  color: white;
+  padding: 0.2rem 0.5rem;
+  border-radius: 1rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  animation: glowing 10s linear infinite;
+  border-radius: 10px;
+  
+}@keyframes glowing {
+  0% { background-position: 0 0; }
+  50% { background-position: 100% 0%; }
+  100% { background-position: 0 0; }
+  
+}
 /* Toggle shuffle */
 #shuffleButton{
   background-color: #555;
