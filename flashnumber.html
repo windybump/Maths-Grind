@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Maths Grind</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="flashnumber.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,12 +28,12 @@
                     <li><a href="index.html">Times Tables</a></li>
                     <li><a href="about.html">About</a></li>
                     <li><a href="contact.html">Contact</a></li>
-                    <!-- <li><a href="flashnumber.html">Flash Numbers</a></li> -->
-                  </ul>
+                    <li><a href="flashnumber.html">Flash Numbers</a></li>
+                </ul>
                   
                 
                 
-                
+               
             </div>
 
             <div class="popup">
@@ -43,7 +44,7 @@
                 
                 <div class="overlay-content">
                   <div id="setDifficulty">
-                    <h1>Choose a difficulty</h1>
+                    <h1>THIS DOESN'T WORK ATM DON'T USE IT</h1>
                     <a href="#" class="difficulty" onclick="difficulty('easy')">Easy</a>
                     <span class="difficulty-tooltip" id="easy-tooltip">Doesn't include 6, 7, 8, 9 & 12 times tables</span>
                     <a href="#" class="difficulty"onclick="difficulty('medium')">Medium</a>
@@ -78,7 +79,6 @@
                     <button id="submitSingular" onclick="submitNumbers('singular')">Apply</button>
                   </div>
                 </div>
-                
             </div>
         </div>
         
@@ -88,90 +88,52 @@
 
     <!-- main part which generates the time table questions and inputs etc-->
     <main>
-        <div class = "grid-container">
-            <div class="settings-container grid-item">
-                <div id="safeTimer">
-                    <h2 id = "timerTitle">Timer</h2> 
-                    <p id="safeTimerDisplay"></p>
-                    
-                    <div class="timer-settings">
-                        <a class="time-length" href="#" onclick="setTime(1)">1m</a>
-                        <a class="time-length" href="#" onclick="setTime(2)">2m</a>
-                        <a class="time-length" href="#" onclick="setTime(5)">5m</a>
-                        <a class="time-length" href="#" onclick="setTime(0)">&#8734;</a>
-                        <button class="timer-reset" onclick="restart()">
-                            <i class="fa fa-undo" aria-hidden="true"></i>
-                        </button>
-                    </div>
-                </div>
-                
-                <div id = "shuffleButton">
-                    <label class="switch">
-                        <input type="checkbox" id = "shuffleToggle" onclick="checkShuffle(this)" checked>
-                        <span class="slider round"></span>
-                        <span class="toggle-label">Shuffle</span>  
-                    </label>
+            <button class="start" onclick="start()">
+                Start
+            </button>
+        <div class="center">
+            <h1>Flash Numbers</h1>
 
-                    <label class="switch">
-                        <input type="checkbox">
-                        
-                      </label>
-                      
-                </div>
+            <h1 id="difficultyState"></h1>
+            <p>Calculate the sum of the numbers that appear on screen</p>
+            <!-- css class for the questions -->
+            <div id="currentNumber" class="flashbox unselectable"></div>
+
+                <form autocomplete="off">               
+                        <input id="userAnswer" type="number" min="1">
+                        <button id="myBtn">Submit</button>
+                </form>
             </div>
-            <div class="grid-item">
-                <h1></h1>
-                <h1>Times Tables</h1>
+        </div>
 
-                <h1 id="difficultyState"></h1>
+        <div id="scoreModal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+              <a href="javascript:void(0)" class="close">&times;</a>
+              <div class="stats">
+                <p1>Time:</p1> <p2 id="time">0</p2>
+                <p1>Difficulty:</p1> <p2 id="difficulty">0</p2>
+                <p1>Shuffle:</p1> <p2 id="shuffle">0</p2>
+                <div style = "visibility: hidden;">321</div><div style = "visibility: hidden;">321</div> 
+                <!--silly hack to divide the sections-->
+                <p1>Correct answers:</p1> <p2  id = "correct">0</p2>
+                <p1>First time correct:</p1> <p2 id = "firstTimeCorrect">0</p2>
+                <p1>Highest Streak:</p1> <p2 id = "highestStreak">0</p2>
+                <p1> Score:
+                    <i class="fa fa-question-circle-o" aria-hidden="true">
+                        <span class="score-tooltip">
+                            <img id="scoreFormula" src="formula.jpg">
+                        </span> 
+                    </i> 
+                </p1>
+                <p2  id = "score">0</p2>
                 
-                <!-- css class for the questions -->
-                <div id="currentQuestion" class="questions unselectable"></div>
-                <div id="nextQuestion" class="questions unselectable"></div>
-            
-                <!-- css class for answers-->
-                <div class ="answers">
-                    <form autocomplete="off">               
-                            <input id="userAnswer" type="number" min="1">
-                            <button id="myBtn">Submit</button>
-                    </form>
-                </div>
-                <div id="streak" class="streak"></div>
-                <div id="highScore" class="highScore"></div>
-
-
-                <div id="scoreModal" class="modal">
-                    <!-- Modal content -->
-                    <div class="modal-content">
-                    <a href="javascript:void(0)" class="close">&times;</a>
-                    <div class="stats">
-                        <p1>Time:</p1> <p2 id="time">0</p2>
-                        <p1>Difficulty:</p1> <p2 id="difficulty">0</p2>
-                        <p1>Shuffle:</p1> <p2 id="shuffle">0</p2>
-                        <div style = "visibility: hidden;">321</div><div style = "visibility: hidden;">321</div> 
-                        <!--silly hack to divide the sections-->
-                        <p1>Correct answers:</p1> <p2  id = "correct">0</p2>
-                        <p1>First time correct:</p1> <p2 id = "firstTimeCorrect">0</p2>
-                        <p1>Highest Streak:</p1> <p2 id = "highestStreak">0</p2>
-                        <p1> Score:
-                            <i class="fa fa-question-circle-o" aria-hidden="true">
-                                <span class="score-tooltip">
-                                    <img id="scoreFormula" src="formula.jpg">
-                                </span> 
-                            </i> 
-                        </p1>
-                        <p2  id = "score">0</p2>
-                        
-                    </div>
-                    </div>
-                
-                </div>
+              </div>
             </div>
-            
+          
         </div>
     </main>
-    <script src="index.js"></script>
-    <script src="timer.js"></script>
-    <script src="nav.js"></script>
+    <script src="flashnumber.js"></script>
+    <script src="navflashnumber.js"></script>
 </body>
 </html>

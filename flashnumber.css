@@ -1,0 +1,18 @@
+.flashbox{
+    display: flex;
+    position: relative;
+    background-color: rgba(100, 100, 100, .3);
+    height: 300px;
+    width: 75%;
+    left: 12%;
+    border-radius: 2rem; 
+    justify-content: center;
+    align-items: center;
+    font-size: 20.5vw;
+  }
+
+.start{
+    position:relative;
+    left: -300px;
+    top: 200px
+}
