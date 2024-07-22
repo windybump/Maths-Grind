@@ -88,21 +88,22 @@
 
     <!-- main part which generates the time table questions and inputs etc-->
     <main>
-            <button class="start" onclick="start()">
-                Start
-            </button>
-        <div class="center">
+            
+        <div class="flex-container">
             <h1>Flash Numbers</h1>
 
             <h1 id="difficultyState"></h1>
             <p>Calculate the sum of the numbers that appear on screen</p>
-            <!-- css class for the questions -->
+            <button class="start" onclick="start()">
+                Start
+            </button>
             <div id="currentNumber" class="flashbox unselectable"></div>
 
                 <form autocomplete="off">               
                         <input id="userAnswer" type="number" min="1">
                         <button id="myBtn">Submit</button>
                 </form>
+
             </div>
         </div>
 

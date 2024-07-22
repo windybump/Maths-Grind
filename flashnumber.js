@@ -1,31 +1,27 @@
 let input = document.getElementById('userAnswer');
-input.blur()
-
+input.style.display ="none";
+document.getElementById('myBtn').style.display="none";
 let exclude = []
 let include = [1,2,3,4,5,6,7,8,9,10,11,12]
 let shuffleOn = true;
 
-let arrayLength = 10; // set number for now
+let arrayLength = 5; // set number for now
 let flashArray = []
-
+let showingNumbers = false;
 
 
 
 let difficultyState = "Full"
-let count = 0; //counts through the array of times tables
 let streak = 0;
 let highScore = 0;
 let highestStreak = 0;
 let correct = 0;
-let firstTimeCorrect = 0;
-let firstTime = true;
-let countdownStarted = false;
+
 
 
 
 document.getElementById("difficultyState").innerText = difficultyState;
 document.getElementById("myBtn").addEventListener("click",(event)=>{event.preventDefault();readAnswer()} );
-generateQuestion();
 
 //  generates random number and excludes numbers   
 function generateRandom(min, max, excludes) {
@@ -37,9 +33,7 @@ function difficulty(level){
     
 }
 
-function generateQuestion(){
-    
-}
+
 function delay(milliseconds){
     return new Promise(resolve => {
         setTimeout(resolve, milliseconds);
@@ -56,9 +50,14 @@ function generateSet(includes, size){
 }
 
 async function start(){
+    input.value = ""
+    input.style.display ="none";
+    document.getElementById('myBtn').style.display="none";
+    if (showingNumbers==false){
+    showingNumbers = true;
     flashArray = generateSet(include, arrayLength);
-    shownNumber = document.getElementById('currentNumber')
-    
+    let shownNumber = document.getElementById('currentNumber')
+    shownNumber.style.fontSize = "10vw";
     for (var i = 0; i < arrayLength; i++){
             console.log("show number " + String(flashArray[i]))
             shownNumber.innerText = String(flashArray[i])
@@ -66,25 +65,30 @@ async function start(){
             shownNumber.innerText = ""
             await delay(100);
     }
-    
+    input.style.display ="block";
+    document.getElementById('myBtn').style.display="block";
     input.focus()
+    showingNumbers = false;
+    }
 }
 
 function readAnswer(){
-    shownNumber = document.getElementById('currentNumber')
+    console.log("read answer?")
+    let shownNumber = document.getElementById('currentNumber')
     result = document.getElementById('result')
     sum = flashArray.reduce(add,0)
-    if(flashArray.length == 0){
-        start()
+ 
+    if (input.value == sum){
+        shownNumber.style.fontSize = "3vw"; 
+        shownNumber.innerText = "correct"
+        flashArray = []
+        input.style.display ="none";
+        document.getElementById('myBtn').style.display="none";
     }else{
-        if (input.value == sum){
-            
-            shownNumber.innerText = "correct"
-            flashArray = []
-        }else{
-            shownNumber.innerText = "try again"
-        }
+           shownNumber.style.fontSize = "3vw"; 
+        shownNumber.innerText = "try again"
     }
+
     input.value = ""
 }
 function add(accumulator, a) {
@@ -92,10 +96,13 @@ function add(accumulator, a) {
   }
 
 input.addEventListener("keypress", function(event){
-    if (event.key == "Enter"){
-        event.preventDefault();
-        readAnswer();
+    if (showingNumbers == false){
+        if (event.key == "Enter"){
+            event.preventDefault();
+            readAnswer();
+        }
     }
+    
 });
 
 

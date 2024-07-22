@@ -609,8 +609,8 @@ input[type=number] {
     display: grid;
     grid-template-columns: auto;
     position: absolute;
-    top: 15%;
-    left: 10%;
+    justify-content: center;
+    align-items: center;
    }
    button.nav-toggle{
     background-color: transparent;
@@ -621,11 +621,8 @@ input[type=number] {
     width: 3rem;
     height: 3rem;
   }
-  .login-button{
-    top:10px;
-  }
   h1{
-    margin:0;
+    margin: 10px 0;
   }
    #safeTimer{
     display: block;
@@ -633,6 +630,7 @@ input[type=number] {
     left: 120px;
     padding: 0.5rem;
     margin: 5px 0 0 0;
+    width: 250px;
    }
    h2#timerTitle{
     font-size: large;
@@ -651,5 +649,4 @@ input[type=number] {
     width: 300px;
     text-align: center;
   }
-  
 }

@@ -1,18 +1,44 @@
+.flex-container{
+  position:absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  top: 100px;
+  width:100%;
+}
 .flashbox{
     display: flex;
     position: relative;
     background-color: rgba(100, 100, 100, .3);
     height: 300px;
-    width: 75%;
-    left: 12%;
+    width: 300px;
     border-radius: 2rem; 
     justify-content: center;
     align-items: center;
-    font-size: 20.5vw;
+    font-size: 10vw;
   }
 
 .start{
     position:relative;
-    left: -300px;
-    top: 200px
+    margin: 10px 0;
+}
+
+
+
+
+
+@media screen and (max-width: 770px) {
+  .flex-container{
+    position:absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    top: 100px
+  }
+  
+  p{
+    text-align: center;
+  }
 }
