@@ -1,4 +1,4 @@
-Maths Grind: A simple and efficient website to practice arithmetic
+Maths Grind: A clean and efficient website to practice arithmetic
 
 Get Started
 1) Go to the website: https://mathsgrind.com/
