@@ -35,7 +35,6 @@
                 
                
             </div>
-
             <div class="popup">
                 <span class="popuptext" id="badInput"></span>
             </div> 
@@ -43,42 +42,32 @@
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                 
                 <div class="overlay-content">
-                  <div id="setDifficulty">
-                    <h1>THIS DOESN'T WORK ATM DON'T USE IT</h1>
-                    <a href="#" class="difficulty" onclick="difficulty('easy')">Easy</a>
-                    <span class="difficulty-tooltip" id="easy-tooltip">Doesn't include 6, 7, 8, 9 & 12 times tables</span>
-                    <a href="#" class="difficulty"onclick="difficulty('medium')">Medium</a>
-                    <span class="difficulty-tooltip" id="medium-tooltip" >Doesn't include 7, 8 & 12 times tables</span>
-                    <a href="#" class="difficulty"onclick="difficulty('hard')">Hard</a>
-                    <span class="difficulty-tooltip" id="hard-tooltip">Doesn't include 1, 2, 5 & 10 times tables</span>
-                    <a href="#" class="difficulty" onclick="difficulty('full')">Full</a>
-                    <span class="difficulty-tooltip" id="hard-tooltip">Includes all times tables from 1 to 12</span>
-                  </div>
-
-                  <a href="#" class="difficulty" id="customLink" onclick="openCustom()">Custom</a>
-                  <span class="difficulty-tooltip" id="custom-tooltip">Create your own times tables</span>
-                  <div id="customNav" class="no-display">
-                    <p class = "nav-text"> Type in a number for the size of the times table you want (e.g 9 will create all the times tables up to 9)</p>
+                  <div id="flashDifficulty">
+                    <h1>Select a difficulty</h1>
+                    <a href="#" class="difficulty" onclick="difficulty('easy')">Easy</a><br>
                     
-                    <input id="inputInclude"> <!--Didn't make input type = number because it created issues with addNumber(),
-                    mainly due turning the input to 0 if a string was passed therefore adding 0 to the includeNumbers div-->
-                    <button id="addNumber">Add</button>
-
-
-                    <p class = "nav-text">Click on the numbers that you want to remove from the times table list</p>
-                    <div id="includeNumbers"></div>
-                    <button id="submitCustom" onclick="submitNumbers('custom')">Apply</button>
+                    <a href="#" class="difficulty"onclick="difficulty('medium')">Medium</a><br>
+                    
+                    <a href="#" class="difficulty"onclick="difficulty('hard')">Hard</a><br><br>
+                    
+                    
                   </div>
+
+                  <a class="setting" id="settingTitle">Amount of numbers</a>
+                  <input  type="number" class = "flashSettingInput" id="numberAmount" min = "2" max = "20"><br>
                   
-                  <a href="#" class="difficulty"  id="singularLink" onclick="openSingular()">Singular</a>
-                  <span class="difficulty-tooltip" id="single-tooltip">Practice a single times table</span>
-                  <div id = "singularNav" class="no-display">
-                    <p>Practice a single times table</p>
-                    
-                    <input id="inputSingular">
-                    <button id="submitSingular" onclick="submitNumbers('singular')">Apply</button>
-                  </div>
+                  <a class="setting" id="settingTitle">Speed (ms)</a>
+                  <i class="fa fa-question-circle-o" aria-hidden="true">
+                    <span class="score-tooltip">
+                        <p>The amount of time each number appears on screen</p>
+                        
+                    </span> 
+                  </i> <br>
+                  <input type="number" class = "flashSettingInput" id="numberSpeed" min = "100" max = "1500"><br>
+                  <button id="ApplyFlashSettings" onclick="applySettings()">Apply</button>
                 </div>
+                <br>
+                
             </div>
         </div>
         

@@ -24,6 +24,16 @@
     margin: 10px 0;
 }
 
+#settingTitle{
+  font-size: 24px;
+  color: whitesmoke;
+}
+.flashSettingInput{
+  padding: 0;
+  width: 50%;
+  text-align: center;
+}
+
 
 
 

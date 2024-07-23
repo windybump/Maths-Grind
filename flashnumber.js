@@ -5,8 +5,9 @@ let exclude = []
 let include = [1,2,3,4,5,6,7,8,9,10,11,12]
 let shuffleOn = true;
 
+let numDelay = 1000;
 let arrayLength = 5; // set number for now
-let flashArray = []
+let flashArray = [];
 let showingNumbers = false;
 
 
@@ -19,7 +20,8 @@ let correct = 0;
 
 
 
-
+document.getElementById("numberAmount").value = arrayLength;
+document.getElementById("numberSpeed").value = numDelay;
 document.getElementById("difficultyState").innerText = difficultyState;
 document.getElementById("myBtn").addEventListener("click",(event)=>{event.preventDefault();readAnswer()} );
 
@@ -30,7 +32,24 @@ function generateRandom(min, max, excludes) {
 }
 
 function difficulty(level){
-    
+    switch(level){
+      case "easy":
+            numDelay = 1500;
+            arrayLength = 5;
+            difficultyState = "Easy"
+            break;
+        case "medium":
+            numDelay = 1000;
+            arrayLength = 10;
+            difficultyState = "Medium"
+            break;
+        case "hard":
+            numDelay = 700;
+            arrayLength = 15;
+            difficultyState = "Hard"
+            break;
+    }
+    resetInputs();
 }
 
 
@@ -61,7 +80,7 @@ async function start(){
     for (var i = 0; i < arrayLength; i++){
             console.log("show number " + String(flashArray[i]))
             shownNumber.innerText = String(flashArray[i])
-            await delay(1000);
+            await delay(numDelay);
             shownNumber.innerText = ""
             await delay(100);
     }

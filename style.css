@@ -253,8 +253,8 @@ input:checked + .slider:before {
   display: grid;
   grid-template-columns: auto auto;
   position: absolute;
-  top: 10%;
-  left: 10%;
+  top: 20%;
+  left: 20%;
 }
 /* Timer CSS */
 #safeTimer{
@@ -368,7 +368,7 @@ button.timer-reset{
 
 .difficulty-tooltip{
   visibility: hidden;
-  
+  display: block;
 }.difficulty:hover + .difficulty-tooltip{
   visibility: visible;
   animation: animatetip 1s;
@@ -476,7 +476,6 @@ button.nav-toggle{
     text-decoration: none;
     font-size: 36px;
     color: #818181;
-    display: block;
     transition: 0.3s;
     
   }
@@ -600,17 +599,19 @@ input[type=number] {
 
 
 /* Responsive design for phones */
-@media screen and (max-width: 770px) {
+@media screen and (max-width: 810px) {
    .nav-header{
     height:50px;
    }
    
    .grid-container{
-    display: grid;
-    grid-template-columns: auto;
     position: absolute;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+  
+    top:10%;
    }
    button.nav-toggle{
     background-color: transparent;
