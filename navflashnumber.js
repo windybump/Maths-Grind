@@ -17,7 +17,8 @@ function closeNav() {
 function showToolTip(){
   document.getElementById("easy-tooltip").classList.add('show-tooltip');
 }
-
+// THERE IS AN ERROR WHEN YOU APPLY SETTINGS AND A SET OF FLASH NUMBERS IS CURRENTLY RUNNING
+// NEED TO BE ABLE TO BREAK ANIMATION WHEN SETTINS ARE APPLIED
 function applySettings(){
   checkInt = Number(inputNumAmount.value)
   switch(true){
